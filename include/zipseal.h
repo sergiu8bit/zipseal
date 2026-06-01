@@ -4,7 +4,9 @@
 #include <zip.h>
 #include <openssl/evp.h>
 
-int calcHash(const char *path, unsigned char hash[32]);
+void toBase64(const unsigned char *hash, int len, char *out);
+
+int calcHash(const char *path, const char *algo, unsigned char *out);
 
 int signHash(const char *zip, const char *key);
 
