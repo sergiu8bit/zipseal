@@ -4,18 +4,18 @@
 #include <zip.h>
 #include <openssl/evp.h>
 
-void toBase64(const unsigned char *hash, int len, char *out);
+char *toBase64(const unsigned char *data, int len);
 
-int calcHash(const char *path, const char *algo, unsigned char *out);
+int calcHash(const char *path, const char *algo, int skip, unsigned char *out);
 
-int signHash(const char *zip, const char *key);
+int signHash(const unsigned char *hash, int hash_len, const char *key,
+             unsigned char **out);
 
-int applySeal();
+int applySeal(const char *zip, const char *b64, int b64_len);
 
-int extractSeal();
+int extractSeal(const char *zip, char **b64_out);
 
-int verifySeal();
-
-int compareSeals();
+int verifySeal(const unsigned char *hash, int hash_len,
+               const unsigned char *sig, int sig_len, const char *pub_key);
 
 #endif
